@@ -4,6 +4,9 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
+# ifndef BUFF_SIZE
+#  define BUFF_SIZE 20
+# endif
 
 char	*get_next_line(int fd);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);

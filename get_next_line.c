@@ -1,43 +1,52 @@
- #include "get_next_line.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hnait <hnait@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/16 11:48:05 by hnait             #+#    #+#             */
+/*   Updated: 2022/11/16 12:06:42 by hnait            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char *get_next_line(int fd)
+#include "get_next_line.h"
+
+char	*get_next_line(int fd)
 {
-	char 
-	int i;
-	static int position = 0;
-	static char rest_buffer[BUFFER_SIZE];
+	static int	index_buffer;
+	static int	return_length;
+	static char	*buff;
+	static char	*old_return;
+	static char	*new_return;
 
-	i = 0;
-	
-
-	printf("\n%d\n", position);
-	return (buff);
-}
-
-void	print_line(char *buff, int *position, char *rest_buffer, char *returnvalue)
-{
-	int	found_new_line;
-	int i;
-	char *buff;
-
-	found_new_line = 0;
-	i = 0;
-	while (i < BUFFER_SIZE)
+	buff = (char *) calloc (sizeof(char), 20 + 1);
+	if (index_buffer == 0)
 	{
-		if (buff[i] != 0 && !found_new_line)
+		read(fd, buff, 20);
+		return_length += 20;
+		new_return = (char *)calloc(sizeof(char), return_length);
+		if (old_return != NULL)
 		{
-			if (buff[i] == '\n')
-			{
-				found_new_line = 1;
-				set_rest_buffer();
-			}
-			else
-			{
-				buff = malloc(sizeof(char) * BUFFER_SIZE);
-				i = read(fd, buff, BUFFER_SIZE-1);
-				print_line(&buff, &position, &rest_buffer);
-				
-			}
+			printf("s");
+			ft_strlcpy(new_return, old_return, ft_strlen(old_return));
+			free(old_return);
 		}
 	}
+	while (buff[index_buffer] != '\0')
+	{
+		new_return[return_length + index_buffer - 20] = buff[index_buffer];
+		index_buffer++;
+		if (buff[index_buffer] == '\n')
+		{
+			old_return = new_return;
+			return (new_return);
+		}
+		if (buff[index_buffer] == '\0')
+		{
+			index_buffer = 0;
+			return (get_next_line(fd));
+		}
+	}
+	return (new_return);
 }

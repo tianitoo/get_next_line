@@ -1,14 +1,2 @@
-abcdefghijklmnopqrs
-tuvwxyzabcdefg
-hijklmnopqrstuvwxyzabcdefgh
-ijklmnopqrstuvwxyzabc
-defghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzab
-cdefghijklmnopqrstuvwxyzabcde
-fghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvw
-xyzabcdefghi
-jklmnopqstuvwxyzabcdefghijklmno
-pq
-rstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefgh
-ijklmnopqr
-stuvwxyz
-afcdefghijklmnopqrs
+hamza nait is here so hello to you
+this should not be printed

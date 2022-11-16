@@ -3,10 +3,5 @@
 int main()
 {
 	int fd = open("test.txt", O_CREAT | O_RDWR);
-	printf(get_next_line(fd));
-	printf(get_next_line(fd));
-	printf(get_next_line(fd));
-	printf(get_next_line(fd));
-	printf(get_next_line(fd));
-	printf(get_next_line(fd));
+	printf("%s\n", get_next_line(fd));
 }

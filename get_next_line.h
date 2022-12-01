@@ -1,11 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hnait <hnait@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/01 18:25:34 by hnait             #+#    #+#             */
+/*   Updated: 2022/12/01 18:33:52 by hnait            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
-# ifndef BUFF_SIZE
-#  define BUFF_SIZE 20
+# include <stdarg.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
 # endif
 
 char	*get_next_line(int fd);

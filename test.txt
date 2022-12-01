@@ -1,3 +1,2 @@
-test for get next
-line so this
-is a last line
+00000000000000
+000000000

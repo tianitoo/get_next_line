@@ -6,7 +6,7 @@
 /*   By: hnait <hnait@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:51:29 by hnait             #+#    #+#             */
-/*   Updated: 2022/12/01 19:09:12 by hnait            ###   ########.fr       */
+/*   Updated: 2022/12/03 11:08:40 by hnait            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,28 @@ void	ft_bzero(void *s, size_t n)
 		i++;
 	}
 }
-
-int main()
-{
-	int fd = open("test.txt", O_CREAT | O_RDWR);
-	printf("|%s|\n", get_next_line(fd));
-	printf("|%s|\n", get_next_line(fd));
-	printf("|%s|\n", get_next_line(fd));
-	printf("|%s|\n", get_next_line(fd));
-	printf("|%s|\n", get_next_line(fd));
-	printf("|%s|\n", get_next_line(fd));
-	printf("|%s|\n", get_next_line(fd));
-}
+// int main()
+// {
+// 	int fd = open("test.txt", O_CREAT | O_RDWR);
+// 	char *ss = get_next_line(fd);
+// 	printf("|%s|\n", ss);
+// 	free(ss);
+// 	ss = get_next_line(fd);
+// 	printf("|%s|\n", ss);
+// 	free(ss);
+// 	ss = get_next_line(fd);
+// 	printf("|%s|\n", ss);
+// 	ss = get_next_line(fd);
+// 	printf("|%s|\n", ss);
+// 	ss = get_next_line(fd);
+// 	printf("|%s|\n", ss);
+// 	ss = get_next_line(fd);
+// 	printf("|%s|\n", ss);
+// 	ss = get_next_line(fd);
+// 	printf("|%s|\n", ss);
+// 	ss = get_next_line(fd);
+// 	printf("|%s|\n", ss);
+// 	ss = get_next_line(fd);
+// 	printf("|%s|\n", ss);
+// 	system("leaks a.out");
+// }

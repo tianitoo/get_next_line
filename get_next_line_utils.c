@@ -6,7 +6,7 @@
 /*   By: hnait <hnait@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:51:29 by hnait             #+#    #+#             */
-/*   Updated: 2022/12/03 11:08:40 by hnait            ###   ########.fr       */
+/*   Updated: 2022/12/09 23:10:57 by hnait            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,29 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+char	*ft_substr(char const *s, size_t len)
 {
+	char	*ss;
 	size_t	i;
 
+	if (!s)
+		return (0);
 	i = 0;
-	if (dstsize <= 0)
-		return (ft_strlen(src));
-	while (i < dstsize - 1 && src[i] != '\0')
+	if (len > ft_strlen(s))
+		len = ft_strlen(s);
+		ss = (char *) malloc (sizeof(char) * (len + 1));
+	if (!ss)
+		return (NULL);
+	while (i < len && s[i])
 	{
-		dst[i] = src[i];
+		ss[i] = s[i];
 		i++;
 	}
-	dst[i] = '\0';
-	return (ft_strlen(src));
+	ss[i] = '\0';
+	return (ss);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*ss;
 	int		i;
@@ -55,9 +61,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (0);
 	len_s1 = ft_strlen(s1);
 	len_s2 = ft_strlen(s2);
-	ss = (char *) malloc (sizeof(char) * (len_s1 + len_s2 + 1));
+	ss = (char *) ft_calloc (sizeof(char), (len_s1 + len_s2 + 1));
 	if (!ss)
-		return (0);
+		return (NULL);
 	i = -1;
 	while (++i < len_s1)
 		ss[i] = s1[i];
@@ -65,6 +71,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (++j < len_s2)
 		ss[i + j] = s2[j];
 	ss[i + j] = 0;
+	ft_bzero(s2, BUFFER_SIZE);
 	return (ss);
 }
 
@@ -74,7 +81,7 @@ void	*ft_calloc(size_t count, size_t size)
 
 	tab = malloc(count * size);
 	if (!tab)
-		return (0);
+		return (NULL);
 	ft_bzero(tab, count * size);
 	return (tab);
 }
@@ -109,11 +116,11 @@ void	ft_bzero(void *s, size_t n)
 // 	printf("|%s|\n", ss);
 // 	ss = get_next_line(fd);
 // 	printf("|%s|\n", ss);
-// 	ss = get_next_line(fd);
-// 	printf("|%s|\n", ss);
-// 	ss = get_next_line(fd);
-// 	printf("|%s|\n", ss);
-// 	ss = get_next_line(fd);
-// 	printf("|%s|\n", ss);
-// 	system("leaks a.out");
+// 	// ss = get_next_line(fd);
+// 	// printf("|%s|\n", ss);
+// 	// ss = get_next_line(fd);
+// 	// printf("|%s|\n", ss);
+// 	// ss = get_next_line(fd);
+// 	// printf("|%s|\n", ss);
+// 	// system("leaks a.out");
 // }

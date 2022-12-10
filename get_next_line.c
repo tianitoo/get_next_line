@@ -6,96 +6,89 @@
 /*   By: hnait <hnait@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 11:48:05 by hnait             #+#    #+#             */
-/*   Updated: 2022/12/03 23:17:13 by hnait            ###   ########.fr       */
+/*   Updated: 2022/12/09 23:53:54 by hnait            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*advance_buffer(char *buffer, int i)
+int	find_nl_index(char **next_line, char *buffer)
 {
-	int	j;
+	int		i;
+	char	*tmp_nl;
 
-	j = 0;
-	while (buffer[i])
+	i = 0;
+	tmp_nl = ft_strjoin(*next_line, buffer);
+	if (!tmp_nl)
+		return (-2);
+	free(*next_line);
+	*next_line = tmp_nl;
+	while ((*next_line)[i] != '\0')
 	{
-		buffer[j] = buffer[i];
+		if ((*next_line)[i] == '\n')
+			return (i + 1);
 		i++;
-		j++;
 	}
-	while (buffer[j])
-		buffer[j++] = '\0';
-	return (buffer);
+	return (-1);
 }
 
-int	find_nl(char *buffer)
+int	find_nl(char **next_line, int fd)
+{
+	char	*buffer;
+	int		i;
+	int		eof;
+
+	eof = 1;
+	buffer = (char *)ft_calloc(sizeof(char), BUFFER_SIZE + 1);
+	if (!buffer)
+		return (-1);
+	if (ft_strlen(*next_line) == 0)
+		eof = read(fd, buffer, BUFFER_SIZE);
+	while (eof > 0)
+	{
+		i = find_nl_index(next_line, buffer);
+		if (i >= 0)
+			return (free(buffer), i);
+		if (i == -2)
+			return (free(buffer), -1);
+		eof = read(fd, buffer, BUFFER_SIZE);
+	}
+	if (eof == -1)
+		return (free(buffer), -1);
+	return (ft_bzero(buffer, BUFFER_SIZE), free(buffer), ft_strlen(*next_line));
+}
+
+void	remove_nl(char *next_line, int nl_index)
 {
 	int	i;
 
 	i = 0;
-	while (buffer[i] != '\0' && buffer[i] != '\n')
-		i++;
-	if (buffer[i] == '\n')
-		i++;
-	return (i);
-}
-void allocate_buffer(char **buffer, int fd)
-{
-	if (!(*buffer))
-	{
-		*buffer = (char *)ft_calloc(sizeof(char), BUFFER_SIZE + 1);
-		if (!*buffer || read(fd, *buffer, BUFFER_SIZE) <= 0)
-		{	
-			free(*buffer);
-			*buffer = NULL;
-		}
-	}
+	while (next_line[nl_index] != '\0')
+		next_line[i++] = next_line[nl_index++];
+	while (next_line[i])
+		next_line[i++] = '\0';
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
-	char		*ss;
-	char		*new_ss;
-	int			i_j[2];
-	int			eof;
+	static char	*next_line;
+	char		*return_value;
+	int			nl_index;
 
-	if (fd < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	i_j[0] = 0;
-	i_j[1] = 0;
-	eof = 1;
-	allocate_buffer(&buffer, fd);
-	if (!buffer)
-		return (NULL);
-	ss = (char *)ft_calloc(sizeof(char), find_nl(buffer) + 1);
-	if (!ss)
-		return (free(buffer), buffer = NULL, NULL);
-	while (buffer[i_j[0]] != '\n')
+	if (!next_line)
 	{
-		if (buffer[i_j[0]] != '\0')
-			ss[i_j[1]++] = buffer[i_j[0]++];
-		if (eof != 0 && buffer[i_j[0]] == '\0')
-		{
-			ft_bzero(buffer, BUFFER_SIZE);
-			eof = read(fd, buffer, BUFFER_SIZE);
-			if (eof <= 0)
-			{
-				if (ft_strlen(ss) == 0 || eof < 0)
-					return (free(ss), free(buffer), buffer = NULL, NULL);
-				return (free(buffer), buffer = NULL, ss);
-			}
-			new_ss = (char *)ft_calloc(sizeof(char),
-					ft_strlen(ss) + find_nl(buffer) + 1);
-			if (!new_ss)
-				return (free(ss), free(buffer), buffer = NULL, NULL);
-			ft_strlcpy(new_ss, ss, ft_strlen(ss) + 1);
-			free(ss);
-			ss = new_ss;
-			i_j[0] = 0;
-		}
+		next_line = (char *)ft_calloc(sizeof(char), 1);
+		if (!next_line)
+			return (NULL);
 	}
-	if (buffer[i_j[0]] == '\n')
-		ss[i_j[1]] = '\n';
-	return (advance_buffer(buffer, i_j[0] + 1), ss);
+	nl_index = find_nl(&next_line, fd);
+	if (nl_index < 0 || ft_strlen(next_line) <= 0)
+		return (free(next_line), next_line = NULL, NULL);
+	return_value = ft_substr(next_line, nl_index);
+	if (!return_value)
+		return (free(next_line), next_line = NULL, NULL);
+	remove_nl(next_line, nl_index);
+	return (return_value);
 }

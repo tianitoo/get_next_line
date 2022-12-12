@@ -6,7 +6,7 @@
 /*   By: hnait <hnait@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 11:48:05 by hnait             #+#    #+#             */
-/*   Updated: 2022/12/09 23:53:54 by hnait            ###   ########.fr       */
+/*   Updated: 2022/12/12 17:57:43 by hnait            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	find_nl(char **next_line, int fd)
 	}
 	if (eof == -1)
 		return (free(buffer), -1);
-	return (ft_bzero(buffer, BUFFER_SIZE), free(buffer), ft_strlen(*next_line));
+	return (ft_bzeronorm(buffer, BUFFER_SIZE),
+		free(buffer), ft_strlen(*next_line));
 }
 
 void	remove_nl(char *next_line, int nl_index)

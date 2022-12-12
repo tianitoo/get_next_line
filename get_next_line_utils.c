@@ -6,7 +6,7 @@
 /*   By: hnait <hnait@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 09:51:29 by hnait             #+#    #+#             */
-/*   Updated: 2022/12/09 23:10:57 by hnait            ###   ########.fr       */
+/*   Updated: 2022/12/12 17:58:17 by hnait            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,28 +99,3 @@ void	ft_bzero(void *s, size_t n)
 		i++;
 	}
 }
-// int main()
-// {
-// 	int fd = open("test.txt", O_CREAT | O_RDWR);
-// 	char *ss = get_next_line(fd);
-// 	printf("|%s|\n", ss);
-// 	free(ss);
-// 	ss = get_next_line(fd);
-// 	printf("|%s|\n", ss);
-// 	free(ss);
-// 	ss = get_next_line(fd);
-// 	printf("|%s|\n", ss);
-// 	ss = get_next_line(fd);
-// 	printf("|%s|\n", ss);
-// 	ss = get_next_line(fd);
-// 	printf("|%s|\n", ss);
-// 	ss = get_next_line(fd);
-// 	printf("|%s|\n", ss);
-// 	// ss = get_next_line(fd);
-// 	// printf("|%s|\n", ss);
-// 	// ss = get_next_line(fd);
-// 	// printf("|%s|\n", ss);
-// 	// ss = get_next_line(fd);
-// 	// printf("|%s|\n", ss);
-// 	// system("leaks a.out");
-// }
